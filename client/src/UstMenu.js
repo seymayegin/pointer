@@ -72,7 +72,7 @@ export default function MenuAppBar(props) {
                                 open={open}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>Log Out</MenuItem>
+                                <MenuItem onClick={() => props.history.push('/login')}>Log Out</MenuItem>
                             </Menu>
                         </div>
                 </Toolbar>
