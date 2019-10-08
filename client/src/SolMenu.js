@@ -7,9 +7,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import IconButton from '@material-ui/core/IconButton/IconButton';
-import MenuIcon from '@material-ui/core/SvgIcon/SvgIcon';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -23,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SolMenu() {
+export default function SolMenu(props) {
     const classes = useStyles();
     const [state, setState] = React.useState({
         top: false,
@@ -45,52 +44,27 @@ export default function SolMenu() {
             className={classes.list}
             role="presentation"
             onClick={toggleDrawer(side, false)}
-            onKeyDown={toggleDrawer(side, false)}
-        >
+            onKeyDown={toggleDrawer(side, false)}>
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
+                <ListItem button onClick={() => props.history.push('/')}>
+                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                    <ListItemText primary="Ana Sayfa"/>
+                </ListItem>
+                <Divider />
+                <ListItem button onClick={() => props.history.push('/s1')}>
+                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                    <ListItemText primary="Sayfa-1"/>
+                </ListItem>
+                <Divider />
+                <ListItem button onClick={() => props.history.push('/s2')}>
+                    <ListItemIcon><InboxIcon /></ListItemIcon>
+                    <ListItemText primary="Sayfa-2"/>
+                </ListItem>
+                <Divider />
             </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-        </div>
-    );
 
-    const fullList = side => (
-        <div
-            className={classes.fullList}
-            role="presentation"
-            onClick={toggleDrawer(side, false)}
-            onKeyDown={toggleDrawer(side, false)}
-        >
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
+
+
         </div>
     );
 
@@ -107,30 +81,7 @@ export default function SolMenu() {
             >
                 {sideList('left')}
             </SwipeableDrawer>
-            <SwipeableDrawer
-                anchor="top"
-                open={state.top}
-                onClose={toggleDrawer('top', false)}
-                onOpen={toggleDrawer('top', true)}
-            >
-                {fullList('top')}
-            </SwipeableDrawer>
-            <SwipeableDrawer
-                anchor="bottom"
-                open={state.bottom}
-                onClose={toggleDrawer('bottom', false)}
-                onOpen={toggleDrawer('bottom', true)}
-            >
-                {fullList('bottom')}
-            </SwipeableDrawer>
-            <SwipeableDrawer
-                anchor="right"
-                open={state.right}
-                onClose={toggleDrawer('right', false)}
-                onOpen={toggleDrawer('right', true)}
-            >
-                {sideList('right')}
-            </SwipeableDrawer>
         </div>
     );
 }
+

@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function MenuAppBar() {
+export default function MenuAppBar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -38,7 +38,7 @@ export default function MenuAppBar() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <SolMenu/>
+                    <SolMenu history={props.history}/>
                     <Typography variant="h6" className={classes.title}>
                         Pointer
                     </Typography>
