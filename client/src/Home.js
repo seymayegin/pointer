@@ -1,10 +1,11 @@
 import React from 'react';
+import Duyuru from "./Duyuru";
 
 export default function Home() {
-
-   return (
+    return (
         <div>
-            ANA SAYFA
+            <Duyuru/>
+
         </div>
     );
 }

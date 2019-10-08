@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
     },
+    inline: {
+        display: 'inline',
+    },
     menuButton: {
         marginRight: theme.spacing(2),
     },
@@ -33,6 +36,8 @@ export default function MenuAppBar(props) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
 
     return (
         <div className={classes.root}>
@@ -74,4 +79,5 @@ export default function MenuAppBar(props) {
             </AppBar>
         </div>
     );
+
 }
