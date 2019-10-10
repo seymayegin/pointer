@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "kodu": "MAT101",
+    "adi": "Matematik 101",
+    "bolumu": "Bilgisayar Mühendisliği"
+  },
+  {
+    "id": 2,
+    "kodu": "TUR101",
+    "adi": "Türkçe 101",
+    "bolumu": "Bilgisayar Mühendisliği"
+  },
+  {
+    "id": 99,
+    "kodu": "TUR101",
+    "adi": "Türkçe 101",
+    "bolumu": "Bilgisayar Mühendisliği"
+  }
+]
