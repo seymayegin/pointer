@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Slider from "react-slick";
 import CardBox from "./CardBox";
+import axios from './Api';
 
 
 const options = {
@@ -48,19 +49,28 @@ const options = {
     ]
 };
 
-const varsayilan = [{baslik:"baslık 1",metin:"icerik 1"},{baslik:"baslık 2",metin:"icerik 2"},{baslik:"baslık 3",metin:"icerik 3"},{baslik:"baslık 4",metin:"icerik 4"}];
 export default function Duyuru() {
 
     console.log('Duyuru');
 
-    const [duyurular,] = useState(varsayilan);
+    const [duyurular, setDuyurular] = useState([]);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    async function fetchData() {
+        const res = await axios.get('kayit/duyuru', {});
+        setDuyurular(res.data.data);
+        console.log(res);
+    }
 
     const duyuruItem = duyuru => {
         return (
             <div className="slick-slide-item">
                 <div className="brand-logo mt-0" style={{paddingBottom:'135px'}}>
                     <h5 className="mt-2">{duyuru.baslik}</h5>
-                    <p>{duyuru.metin}</p>
+                    <p>{duyuru.icerik}</p>
                 </div>
             </div>
         );

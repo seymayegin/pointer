@@ -20,7 +20,6 @@ function App() {
                 <Route>
                     <Router history={history}>
                         <UstMenu history={history}/>
-
                         <Switch>
                             <Route path={`/s1`} component={Sayfa1}/>
                             <Route path={`/s2`} component={Sayfa2}/>

@@ -3,6 +3,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import axios from './Api'
+import {State} from './State';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -22,16 +24,24 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
 export default function Login(props) {
 
     const [userName,setUsername] = useState(null);
     const [password,setPassword] = useState(null);
+    const [hata,setHata] = useState(null);
+
     const classes = useStyles();
 
-    const giris = () => {
-        if (userName ==='s' && password === 's') {
+    async function giris () {
+        try {
+            const res = await axios.post('users/authenticate', {kullaniciAdi: userName, sifre: password});
+            axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.sonuc.token.access_token}`;
+
+            State.user = res.data.sonuc.user;
+            State.token = res.data.sonuc.token;
             props.history.push('/');
+        }catch (e) {
+            setHata(e.response.data.hata);
         }
     }
 
@@ -75,6 +85,7 @@ export default function Login(props) {
                </Button>
 
            </Grid>
+           <Grid item xs={12}>{hata}</Grid>
 
        </Grid>
 

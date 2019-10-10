@@ -7,6 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
 import Badge from "@material-ui/core/Badge";
+import {State} from './State';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -27,7 +28,7 @@ const varsayilan = [{kodu:'MAT101',adi:'Matematik',bolumu:'Bilgisayar Mühendisl
     {kodu:'MAT101',adi:'Matematik',bolumu:'Bilgisayar Mühendisliği',notlar:[75,60,60,60]},
     {kodu:'MAT101',adi:'Matematik',bolumu:'Bilgisayar Mühendisliği',notlar:[75,60,60,60]}];
 
-export default function Sayfa1() {
+export default function Sayfa1(props) {
     const classes = useStyles();
     const [dersler,] = useState(varsayilan);
 
@@ -65,6 +66,8 @@ export default function Sayfa1() {
             </Card>
         );
     };
+
+    if (State.token == null) props.history.push('/login');
 
     return (
         <div>
