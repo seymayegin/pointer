@@ -19,7 +19,7 @@ async function authenticate(req, res, next) {
 	const dbSonuc = await dbUtils.query(`select * from kullanici where kullanici_adi =$1 and sifre=$2`,[req.body.kullaniciAdi,req.body.sifre]);
 	if (dbSonuc.rows.length) {
 		const kullanici = dbSonuc.rows[0];
-        const token = jwt.sign({ sub: 1 }, config.secret);
+        const token = jwt.sign({ sub: kullanici.id }, config.secret);
         const sonuc = {
             result: true,
             user: {kullaniciAdi: kullanici.kullanici_adi, adi:kullanici.adi, soyadi:kullanici.soyadi},

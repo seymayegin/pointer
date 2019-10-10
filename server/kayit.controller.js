@@ -3,30 +3,25 @@ const router = express.Router();
 
 const dbUtils = require('db-utils.js');
 
-
-router.get('/duyuru-liste', getDuyurular);
-router.get('/not-liste', getNotlar);
-
 router.get('/kullanici', getKullanicilar);
 router.post('/kullanici', kullaniciEkle);
 router.put('/kullanici', kullaniciGuncelle);
 router.delete('/kullanici', kullaniciSil);
 
+router.get('/duyuru', getDuyurular);
+router.post('/duyuru', duyuruEkle);
+router.put('/duyuru', duyuruGuncelle);
+router.delete('/duyuru', duyuruSil);
+
+
+router.get('/kullanici-ders', getKullaniciDersleri);
+router.post('/kullanici-ders', kullaniciDersEkle);
+router.put('/kullanici-ders', kullaniciDersGuncelle);
+router.delete('/kullanici-ders', kullaniciDersSil);
+
+
 module.exports = router;
 
-function getDuyurular(req, res, next) {
-	const duyurular = [{baslik:'Duyuru 01', aciklama: 'Duyuru İçerik 01'}, {baslik:'Duyuru 02', aciklama: 'Duyuru İçerik 02'}];
-	res.status(200).json({ data: duyurular});
-}
-
-function getNotlar(req, res, next) {
-	let notlar = [];
-	if(req.user.sub === 1){
-		notlar = [{kodu:'MAT101', notlar: [50,60,55,20]}, {kodu:'TUR101', notlar: [50,60,55,20]}];
-	}
-	
-	res.status(200).json({ data: notlar});
-}
 
 async function kullaniciEkle(req, res, next) {
 	const sonuc = await dbUtils.query(`insert into kullanici values(nextval('seq_kullanici'),$1,$2,$3,$4,$5)`
@@ -50,6 +45,57 @@ async function getKullanicilar(req, res, next) {
 	const sonuc = await dbUtils.query(`select * from kullanici order by id desc`,[]);
 	res.status(200).json({ data: sonuc.rows});
 }
+
+
+async function getDuyurular(req, res, next) {
+	const sonuc = await dbUtils.query(`select * from duyuru order by id desc`,[]);
+	res.status(200).json({ data: sonuc.rows});
+}
+
+async function duyuruEkle(req, res, next) {
+	const sonuc = await dbUtils.query(`insert into duyuru values(nextval('seq_duyuru'),$1,$2)`
+	 ,[req.body.baslik,req.body.icerik]);
+	res.status(200).json({ data: sonuc});
+}
+
+async function duyuruGuncelle(req, res, next) {
+	const sonuc = await dbUtils.query(`update duyuru set baslik =$1,icerik=$2 where id=$3`
+	 ,[req.body.baslik,req.body.icerik,req.body.id]);
+	res.status(200).json({ data: sonuc});
+}
+
+async function duyuruSil(req, res, next) {
+	const sonuc = await dbUtils.query(`delete from duyuru where id=$1`
+	 ,[req.body.id]);
+	res.status(200).json({ data: sonuc});
+}
+
+
+async function getKullaniciDersleri(req, res, next) {
+	const sonuc = await dbUtils.query(`select * from kullanici_ders where kullanici_id=$1 order by id desc`,[req.user.sub ]);
+	res.status(200).json({ data: sonuc.rows});
+}
+
+async function kullaniciDersEkle(req, res, next) {
+	const sonuc = await dbUtils.query(`insert into kullanici_ders values(nextval('seq_kullanici_ders'),$1,$2,$3,$4,$5,$6)`
+	 ,[req.body.kullanici_id,req.body.ders_id,req.body.not_vize1,req.body.not_vize2,req.body.not_proje,req.body.not_final]);
+	res.status(200).json({ data: sonuc});
+}
+
+async function kullaniciDersGuncelle(req, res, next) {
+	const sonuc = await dbUtils.query(`update kullanici_ders set kullanici_id =$1, ders_id=$2, not_vize1=$3, not_vize2=$4, not_proje=$5, not_final=$6 where id=$7`
+	 ,[req.body.kullanici_id,req.body.ders_id,req.body.not_vize1,req.body.not_vize2,req.body.not_proje,req.body.not_final,req.body.id]);
+	res.status(200).json({ data: sonuc});
+}
+
+async function kullaniciDersSil(req, res, next) {
+	const sonuc = await dbUtils.query(`delete from kullanici_ders where id=$1`
+	 ,[req.body.id]);
+	res.status(200).json({ data: sonuc});
+}
+
+
+
 
 
 
