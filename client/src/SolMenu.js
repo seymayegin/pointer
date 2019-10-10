@@ -10,6 +10,8 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
+import NoteIcon from '@material-ui/icons/Note';
+import NotesIcon from '@material-ui/icons/Notes';
 
 const useStyles = makeStyles(theme => ({
     list: {
@@ -48,17 +50,17 @@ export default function SolMenu(props) {
             onKeyDown={toggleDrawer(side, false)}>
             <List>
                 <ListItem button onClick={() => props.history.push('/')}>
-                        <ListItemIcon><HomeIcon /></ListItemIcon>
+                    <ListItemIcon><HomeIcon /></ListItemIcon>
                     <ListItemText primary="Ana Sayfa"/>
                 </ListItem>
                 <Divider />
                 <ListItem button onClick={() => props.history.push('/s1')}>
-                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                    <ListItemIcon><NoteIcon /></ListItemIcon>
                     <ListItemText primary="Notlarım"/>
                 </ListItem>
                 <Divider />
                 <ListItem button onClick={() => props.history.push('/s2')}>
-                    <ListItemIcon><InboxIcon /></ListItemIcon>
+                    <ListItemIcon><NotesIcon /></ListItemIcon>
                     <ListItemText primary="Ders Programı"/>
                 </ListItem>
                 <Divider />
