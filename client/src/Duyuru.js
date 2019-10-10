@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import CardBox from "./CardBox";
 import axios from './Api';
 
+
 const options = {
     autoplay: true,
     autoplaySpeed: 5000,
@@ -76,7 +77,7 @@ export default function Duyuru() {
     };
 
     return (
-            <div className="row" style={{marginTop:'0px'}}>
+            <div className="row" style={{marginTop:'-22px'}}>
                 <CardBox styleName="col-lg-12" cardStyle="text-center pb-0 pt-0" heading="Duyurular & Haberler"
                          headingStyle="m-0 p-0 pt-2 pb-2" childrenStyle="m-0 p-0 pb-1">
                     <Slider className="slick-app-frame pb-0" {...options}>
